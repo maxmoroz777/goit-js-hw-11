@@ -7,7 +7,7 @@
   color: #242424;
   background-color: rgba(255, 255, 255, 0.87);
 
-  /* font-synthesis: none; */
+
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -124,12 +124,24 @@ a {
 .loader {
   width: 48px;
   height: 48px;
-  border: 5px solid;
-  border-color: #FF3D00 transparent;
+  border: 2px solid #FFF;
   border-radius: 50%;
   display: inline-block;
+  position: relative;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+}
+
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  background: #FF3D00;
+  width: 3px;
+  height: 24px;
+  transform: translateX(-50%);
 }
 
 @keyframes rotation {

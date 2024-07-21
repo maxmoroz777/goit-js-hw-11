@@ -16,7 +16,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 const refs = {
     searchForm: document.querySelector(".js-search-form"),
     gallery: document.querySelector(".js-gallery"),
-    loader: document.querySelector(".js-loader"),
+    loader: document.querySelector(".loader"),
 };
 
 refs.searchForm.addEventListener("submit", handlerSubmit);
@@ -44,7 +44,6 @@ function handlerSubmit(event) {
 
 function fetchError(error) {
     iziToast.error({
-        title: "Error",
-        message: "Sorry, there are no images matching your search query. Please try again!",
+            message: "Sorry, there are no images matching your search query. Please try again!",
     });
 }
