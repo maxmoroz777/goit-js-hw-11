@@ -16,7 +16,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 const refs = {
     searchForm: document.querySelector(".js-search-form"),
     gallery: document.querySelector(".js-gallery"),
-    loader: document.querySelector(".loader"),
+    loader: document.querySelector(".js-loader"),
 };
 
 refs.searchForm.addEventListener("submit", handlerSubmit);
