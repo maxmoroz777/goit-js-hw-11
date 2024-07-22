@@ -1,10 +1,8 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
-
-import { renderPictures } from "./js/render-functions";
+import { renderImages } from "./js/render-functions";
 import { generateHttpsQuery, fetchPictures } from "./js/pixabay-api";
 
 const lightbox = new SimpleLightbox('.gallery a', {
@@ -21,10 +19,10 @@ const refs = {
 
 refs.searchForm.addEventListener("submit", handlerSubmit);
 
-function handlerSubmit(event) {
-    event.preventDefault();
+function handlerSubmit(evt) {
+    evt.preventDefault();
 
-    const form = event.currentTarget;
+    const form = evt.currentTarget;
     const formValue = form.elements.searchtext.value.toLowerCase().trim();
     refs.gallery.innerHTML = "";
     refs.loader.classList.add("loader");
@@ -35,7 +33,7 @@ function handlerSubmit(event) {
             if (hits.length === 0) {
                 fetchError();
             } 
-            refs.gallery.insertAdjacentHTML("beforeend", renderPictures(hits));
+            refs.gallery.insertAdjacentHTML("beforeend", renderImages(hits));
             lightbox.refresh();
         })
         .catch(fetchError)
