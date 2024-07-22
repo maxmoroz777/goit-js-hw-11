@@ -3,45 +3,45 @@ import "izitoast/dist/css/iziToast.min.css";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { renderImages } from "./js/render-functions";
-import { generateHttpsQuery, fetchPictures } from "./js/pixabay-api";
+import { getHttpRequest, fetchImages } from "./js/pixabay-api";
 
-const lightbox = new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox(".gallery", {
     captionDelay: 250,
     captionPosition: "bottom",
     captionsData: "alt"
 });
 
-const refs = {
-    searchForm: document.querySelector(".js-search-form"),
-    gallery: document.querySelector(".js-gallery"),
+const searchPage = {
+    searchForm: document.querySelector(".search-form"),
+    gallery: document.querySelector(".gallery"),
     loader: document.querySelector(".js-loader"),
 };
 
-refs.searchForm.addEventListener("submit", handlerSubmit);
+searchPage.searchForm.addEventListener("submit", handlerSubmit);
 
 function handlerSubmit(evt) {
     evt.preventDefault();
 
     const form = evt.currentTarget;
     const formValue = form.elements.searchtext.value.toLowerCase().trim();
-    refs.gallery.innerHTML = "";
-    refs.loader.classList.add("loader");
-    fetchPictures(generateHttpsQuery(formValue))
+    searchPage.gallery.innerHTML = "";
+    searchPage.loader.classList.add("loader");
+    fetchImages(getHttpRequest(formValue))
         .then((data) => {
-            refs.loader.classList.remove("loader");
+            searchPage.loader.classList.remove("loader");
             const hits = data.hits;
             if (hits.length === 0) {
                 fetchError();
             } 
-            refs.gallery.insertAdjacentHTML("beforeend", renderImages(hits));
+            searchPage.gallery.insertAdjacentHTML("beforeend", renderImages(hits));
             lightbox.refresh();
         })
         .catch(fetchError)
-        .finally(refs.searchForm.reset());
+        .finally(searchPage.searchForm.reset());
 }
 
-function fetchError(error) {
+const fetchError = () => {
     iziToast.error({
-            message: "Sorry, there are no images matching your search query. Please try again!",
+        message: "Sorry, there are no images matching your search query. Please try again!",
     });
-}
+};
