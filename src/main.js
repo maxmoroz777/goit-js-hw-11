@@ -5,7 +5,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 import { renderImages } from "./js/render-functions";
 import { getHttpRequest, fetchImages } from "./js/pixabay-api";
 
-const lightbox = new SimpleLightbox(".gallery", {
+const lightbox = new SimpleLightbox(".gallery a", {
     captionDelay: 250,
     captionPosition: "bottom",
     captionsData: "alt"
